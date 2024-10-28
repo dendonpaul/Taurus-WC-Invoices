@@ -33,6 +33,10 @@ if (!class_exists('Taurus_WC_IG_Settings')) {
                 'taurus_wcig_group',
                 'taurus_wcig_custom_email'
             );
+            register_setting(
+                'taurus_wcig_group',
+                'taurus_wcig_enable_invoice_to_customer'
+            );
 
             //Add settings fields.
             //enable email
@@ -49,6 +53,15 @@ if (!class_exists('Taurus_WC_IG_Settings')) {
                 'taurus_wcig_custom_email',
                 'Add custom email to send the invoices. Default admin email used',
                 [$this, 'taurus_wcig_custom_email_html'],
+                'taurus_wcig_group',
+                'taurus_wcig_section1'
+            );
+
+            //Enable email to customer
+            add_settings_field(
+                'taurus_wcig_enable_invoice_to_customer',
+                'Send invoice email to customer',
+                [$this, 'taurus_wcig_enable_invoice_to_customer_html'],
                 'taurus_wcig_group',
                 'taurus_wcig_section1'
             );
@@ -77,9 +90,20 @@ if (!class_exists('Taurus_WC_IG_Settings')) {
         public function taurus_wcig_custom_email_html()
         {
             $custom_email = get_option('taurus_wcig_custom_email', get_option('admin_email')); ?>
-            <input type="email" name='taurus_wcig_custom_email' value='<?php echo (!empty($custom_email)) ? $custom_email : '' ?>' />
+            <input type="email" name='taurus_wcig_custom_email' value='<?php echo (!empty($custom_email)) ? $custom_email : get_option('admin_email') ?>' />
         <?php
 
+        }
+
+        //Enable invoice email to customer
+        public function taurus_wcig_enable_invoice_to_customer_html()
+        {
+            $enable_customer_email = get_option('taurus_wcig_enable_invoice_to_customer', '0') ?>
+            <select name='taurus_wcig_enable_invoice_to_customer'>
+                <option value='0' <?php echo ($enable_customer_email == '0') ? 'selected' : '' ?>>Disable</option>
+                <option value='1' <?php echo ($enable_customer_email == '1') ? 'selected' : '' ?>>Enable</option>
+            </select>
+        <?php
         }
 
         public function taurus_wc_ig_invoice_settings_form()

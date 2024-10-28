@@ -23,12 +23,12 @@ if (!class_exists('Taurus_WC_IG_Main')) {
             $pdf_file_path = $invoiceGeneratorClass->pdf_generator($order);
 
             // Get the recipient email from settings
-            $recipient_email = get_option('woo_invoice_email', get_option('admin_email'));
+            $recipient_email = get_option('taurus_wcig_custom_email', get_option('admin_email'));
 
             // Send the email with the invoice attached
             //check if email option is enabled
             // $email_enabled = $this->taurus_wc_ig_check_options();
-            if ($this->email_options['email_enabled'] === true) {
+            if ($this->email_options['email_enabled'] == '1') {
                 $this->taurus_wc_ig_email_invoice($order, $pdf_file_path, $recipient_email);
             }
         }
@@ -43,7 +43,7 @@ if (!class_exists('Taurus_WC_IG_Main')) {
 
             // Prepare headers
             $headers[] = 'Content-Type: text/html; charset=UTF-8';
-            if ($this->email_options['email_customer'] == true && null !== $order->get_billing_email()) {
+            if ($this->email_options['email_customer'] === '1' && null !== $order->get_billing_email()) {
                 $headers[] = 'Cc:' . $order->get_billing_email();
             }
 
@@ -68,11 +68,10 @@ if (!class_exists('Taurus_WC_IG_Main')) {
         //Check options
         public function taurus_wc_ig_check_options()
         {
-            $taurus_wc_ig_email_enabled = get_option('taurus_wc_ig_enable_thankyou_email', true);
-            $taurus_wc_ig_email_customer_enabled = true;
-            $taurus_wc_ig_email_cc = true;
-            $taurus_wc_ig_email_bcc = true;
-            return ['email_enabled' => $taurus_wc_ig_email_enabled, 'email_customer' => $taurus_wc_ig_email_customer_enabled, 'email_cc' => $taurus_wc_ig_email_cc, 'email_bcc' => $taurus_wc_ig_email_bcc];
+            $taurus_wc_ig_email_enabled = get_option('taurus_wcig_enable_email', '0');
+            $taurus_wc_ig_custom_email = get_option('taurus_wcig_custom_email');
+            $taurus_wc_ig_email_customer_enabled = get_option('taurus_wcig_enable_invoice_to_customer', '0');
+            return ['email_enabled' => $taurus_wc_ig_email_enabled, 'email_customer' => $taurus_wc_ig_email_customer_enabled, 'custom_email' => $taurus_wc_ig_custom_email];
         }
     }
 }
