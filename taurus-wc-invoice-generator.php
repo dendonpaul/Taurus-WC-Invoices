@@ -18,6 +18,10 @@ if (!class_exists('Taurus_WC_Invoice_Generator')) {
 
             require_once(WOO_INVOICE_PLUGIN_DIR_PATH . '/includes/class.Taurus_WC_IG_Main.php');
             require_once(WOO_INVOICE_PLUGIN_DIR_PATH . '/includes/class.Taurus_WC_IG_PDF_Invoice_Generator.php');
+
+            //Admin Interface
+            require_once(WOO_INVOICE_PLUGIN_DIR_PATH . '/includes/admin/class.Taurus_WC_IG_Settings.php');
+            $taurus_admin = new Taurus_WC_IG_Settings();
         }
 
         public function define_constants()
@@ -51,9 +55,9 @@ if (!class_exists('Taurus_WC_Invoice_Generator')) {
 }
 
 if (class_exists('Taurus_WC_Invoice_Generator')) {
-    register_activation_hook(__FILE__, array('Taurus_Woo_Quick_Fixes', 'activate'));
-    register_deactivation_hook(__FILE__, array('Taurus_Woo_Quick_Fixes', 'deactivate'));
-    register_uninstall_hook(__FILE__, array('Taurus_Woo_Quick_Fixes', 'uninstall'));
+    register_activation_hook(__FILE__, array('Taurus_WC_Invoice_Generator', 'activate'));
+    register_deactivation_hook(__FILE__, array('Taurus_WC_Invoice_Generator', 'deactivate'));
+    register_uninstall_hook(__FILE__, array('Taurus_WC_Invoice_Generator', 'uninstall'));
 
     $invoiceGenerator = new Taurus_WC_Invoice_Generator();
 }
