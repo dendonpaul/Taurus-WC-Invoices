@@ -39,6 +39,10 @@ if (!class_exists('Taurus_WC_IG_Settings')) {
             );
             register_setting(
                 'taurus_wcig_group',
+                'taurus_wcig_comp_mobile'
+            );
+            register_setting(
+                'taurus_wcig_group',
                 'taurus_wcig_enable_invoice_to_customer'
             );
 
@@ -66,6 +70,15 @@ if (!class_exists('Taurus_WC_IG_Settings')) {
                 'taurus_wcig_company_address',
                 'Company Address',
                 [$this, 'taurus_wcig_company_address_html'],
+                'taurus_wcig_group',
+                'taurus_wcig_section1'
+            );
+
+            //Add Company Mobile number
+            add_settings_field(
+                'taurus_wcig_comp_mobile',
+                'Company Mobile',
+                [$this, 'taurus_wcig_comp_mobile_html'],
                 'taurus_wcig_group',
                 'taurus_wcig_section1'
             );
@@ -113,6 +126,14 @@ if (!class_exists('Taurus_WC_IG_Settings')) {
         {
             $comp_address = get_option('taurus_wcig_company_address', 'Address'); ?>
             <textarea name='taurus_wcig_company_address'><?php echo (!empty($comp_address)) ? $comp_address : "Enter company address" ?></textarea>
+        <?php
+        }
+
+        //Add company mobile number
+        public function taurus_wcig_comp_mobile_html()
+        {
+            $comp_mobile = get_option('taurus_wcig_comp_mobile', 'Mobile/Contact No.'); ?>
+            <input type="text" name="taurus_wcig_comp_mobile" value="<?php echo (!empty($comp_mobile)) ? $comp_mobile : 'Mobile/Contact No.' ?>" />
         <?php
         }
 

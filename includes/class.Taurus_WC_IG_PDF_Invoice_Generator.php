@@ -47,25 +47,30 @@ if (!class_exists('Taurus_WC_IG_PDF_Invoice_Generator')) {
 
             // $pdf->Cell(30);
             // $pdf->Cell(120, 5, "Althara GCDA Road,", 0, 0);
-            // $pdf->Cell(40, 5, "Invoice #:" . $order->get_order_number(), 0, 1);
+            $pdf->Cell(120);
+            $pdf->Cell(40, 5, "Invoice #:" . $order->get_order_number(), 0, 1);
 
             // // $pdf->Cell(30);
             // $pdf->Cell(120, 5, "Thottakkattukara P.O, Aluva,", 0, 0);
-            // $pdf->Cell(40, 5, "Date/Time: " . $order->get_date_created()->date('Y-m-d H:i:s'), 0, 1);
+            $pdf->Cell(120);
+            $pdf->Cell(40, 5, "Date/Time: " . $order->get_date_created()->date('Y-m-d H:i:s'), 0, 1);
 
             // // $pdf->Cell(30);
             // $pdf->Cell(120, 5, "Kerala - 683108", 0, 0);
-            // $pdf->Cell(40, 5, "Cust. Name: " . $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(), 0, 1);
+            $pdf->Cell(120);
+            $pdf->Cell(40, 5, "Cust. Name: " . $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(), 0, 1);
 
+            $pdf->SetY(35);
             $pdf->MultiCell(100, 5, get_option('taurus_wcig_company_address'), 0, 1);
 
             // $pdf->Cell(30);
-            $add = get_option('taurus_wcig_custom_email', get_option('admin_email'));
-            $pdf->Cell(120, 5, "Email:" . $add, 0, 0);
+            $address = get_option('taurus_wcig_custom_email', get_option('admin_email'));
+            $pdf->Cell(120, 5, "Email:" . $address, 0, 0);
             $pdf->Cell(40, 5, "", 0, 1);
 
             // $pdf->Cell(30);
-            $pdf->Cell(120, 5, "Phone:+91-7511177000, +91-7306481922", 0, 0);
+            $mobile = get_option('taurus_wcig_comp_mobile');
+            $pdf->Cell(120, 5, "Phone: " . $mobile, 0, 0);
             $pdf->Cell(40, 5, "", 0, 1);
 
             //Blank Cell for white space
