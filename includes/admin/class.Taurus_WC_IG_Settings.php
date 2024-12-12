@@ -69,7 +69,7 @@ if (!class_exists('Taurus_WC_IG_Settings')) {
             //Add sections
             add_settings_section(
                 'taurus_wcig_section1',
-                'Invoice Generator Settings',
+                'Invoice Email Settings',
                 null,
                 'taurus_wcig_group'
             );
