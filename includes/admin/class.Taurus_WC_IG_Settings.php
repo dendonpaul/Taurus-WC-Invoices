@@ -35,6 +35,10 @@ if (!class_exists('Taurus_WC_IG_Settings')) {
             );
             register_setting(
                 'taurus_wcig_group',
+                'taurus_wcig_company_address'
+            );
+            register_setting(
+                'taurus_wcig_group',
                 'taurus_wcig_enable_invoice_to_customer'
             );
 
@@ -53,6 +57,15 @@ if (!class_exists('Taurus_WC_IG_Settings')) {
                 'taurus_wcig_custom_email',
                 'Add custom email to send the invoices. Default admin email used',
                 [$this, 'taurus_wcig_custom_email_html'],
+                'taurus_wcig_group',
+                'taurus_wcig_section1'
+            );
+
+            //Add company address
+            add_settings_field(
+                'taurus_wcig_company_address',
+                'Company Address',
+                [$this, 'taurus_wcig_company_address_html'],
                 'taurus_wcig_group',
                 'taurus_wcig_section1'
             );
@@ -93,6 +106,14 @@ if (!class_exists('Taurus_WC_IG_Settings')) {
             <input type="email" name='taurus_wcig_custom_email' value='<?php echo (!empty($custom_email)) ? $custom_email : get_option('admin_email') ?>' />
         <?php
 
+        }
+
+        //set company address HTML
+        public function taurus_wcig_company_address_html()
+        {
+            $comp_address = get_option('taurus_wcig_company_address', 'Address'); ?>
+            <textarea name='taurus_wcig_company_address'><?php echo (!empty($comp_address)) ? $comp_address : "Enter company address" ?></textarea>
+        <?php
         }
 
         //Enable invoice email to customer

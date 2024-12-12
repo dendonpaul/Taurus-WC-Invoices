@@ -13,6 +13,14 @@ if (!class_exists('Taurus_WC_IG_PDF_Invoice_Generator')) {
 
         public function pdf_generator($order)
         {
+
+            //Billing Details
+            $billing_name = $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
+            $billing_address = $order->get_billing_address_1() . ', ' . $order->get_billing_city() . ', ' . $order->get_billing_state() . ' - ' . $order->get_billing_postcode();
+            $billing_email = $order->get_billing_email();
+            $billing_phone = $order->get_billing_phone();
+
+
             $pdf = new FPDF();
             $pdf->AddPage();
 
@@ -35,21 +43,25 @@ if (!class_exists('Taurus_WC_IG_PDF_Invoice_Generator')) {
             //Set font to arial, regular, 12pt
             $pdf->SetFont('Arial', '', 12);
 
-            //header Details
-            // $pdf->Cell(30);
-            $pdf->Cell(120, 5, "Althara GCDA Road,", 0, 0);
-            $pdf->Cell(40, 5, "Invoice #:" . $order->get_order_number(), 0, 1);
+            //header Details - company address
 
             // $pdf->Cell(30);
-            $pdf->Cell(120, 5, "Thottakkattukara P.O, Aluva,", 0, 0);
-            $pdf->Cell(40, 5, "Date/Time: " . $order->get_date_created()->date('Y-m-d H:i:s'), 0, 1);
+            // $pdf->Cell(120, 5, "Althara GCDA Road,", 0, 0);
+            // $pdf->Cell(40, 5, "Invoice #:" . $order->get_order_number(), 0, 1);
+
+            // // $pdf->Cell(30);
+            // $pdf->Cell(120, 5, "Thottakkattukara P.O, Aluva,", 0, 0);
+            // $pdf->Cell(40, 5, "Date/Time: " . $order->get_date_created()->date('Y-m-d H:i:s'), 0, 1);
+
+            // // $pdf->Cell(30);
+            // $pdf->Cell(120, 5, "Kerala - 683108", 0, 0);
+            // $pdf->Cell(40, 5, "Cust. Name: " . $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(), 0, 1);
+
+            $pdf->MultiCell(100, 5, get_option('taurus_wcig_company_address'), 0, 1);
 
             // $pdf->Cell(30);
-            $pdf->Cell(120, 5, "Kerala - 683108", 0, 0);
-            $pdf->Cell(40, 5, "Cust. Name: " . $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(), 0, 1);
-
-            // $pdf->Cell(30);
-            $pdf->Cell(120, 5, "Email: care@hovet.in", 0, 0);
+            $add = get_option('taurus_wcig_custom_email', get_option('admin_email'));
+            $pdf->Cell(120, 5, "Email:" . $add, 0, 0);
             $pdf->Cell(40, 5, "", 0, 1);
 
             // $pdf->Cell(30);
@@ -63,11 +75,7 @@ if (!class_exists('Taurus_WC_IG_PDF_Invoice_Generator')) {
             $pdf->SetFont('Arial', 'B', 14);
             $pdf->Cell(100, 10, "Bill To:", 0, 1);
 
-            //Billing Details
-            $billing_name = $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
-            $billing_address = $order->get_billing_address_1() . ', ' . $order->get_billing_city() . ', ' . $order->get_billing_state() . ' - ' . $order->get_billing_postcode();
-            $billing_email = $order->get_billing_email();
-            $billing_phone = $order->get_billing_phone();
+            //Billing Details Section
 
             $pdf->SetFont('Arial', '', 12);
             // $pdf->Cell(30);
