@@ -26,7 +26,7 @@ if (!class_exists('Taurus_WC_IG_PDF_Invoice_Generator')) {
 
             // Set document title and metadata
             $pdf->SetTitle('Invoice for Order #' . $order->get_order_number());
-            $pdf->SetAuthor('Curewell Homoeo Pharmacy');
+            $pdf->SetAuthor(bloginfo('name'));
 
             // Set font to Arial, bold, 14pt
             $pdf->SetFont('Arial', 'B', 14);
