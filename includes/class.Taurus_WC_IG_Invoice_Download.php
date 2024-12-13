@@ -9,17 +9,22 @@ if (!class_exists('Taurus_WC_IG_Invoice_Download')) {
 
         public function taurus_wcig_invoice_download_button($order)
         {
-            $order_id = $order->get_id();
+
+            if (isset($_POST["taurus_wcig_order_id"])) {
+                echo "Dello-Henny";
+                $invoice_generator = new Taurus_WC_Invoice_Generator();
+                $pdf_file = $invoice_generator->pdf_generator($order);
+                echo $pdf_file;
+            }
 ?>
             <div class="invoice-download-button">
-                <a href="<?php echo esc_url(admin_url('admin.php?page=custom_page&order_id=' . $order_id)); ?>"
-                    class="button button-primary"
-                    target="_blank">
-                    Download Invoice
-                </a>
+                <form method="post" action="">
+                    <input type='hidden' name='taurus_wcig_order_id' id='taurus_wcig_order_id' />
+                    <input type='submit' name='taurus_wcig_download_invoice' value='Download Invoice' class="button button-primary" />
+                </form>
             </div>
             <style>
-                .invoice-download-button a {
+                .invoice-download-button input[type=submit] {
                     margin-top: 20px !important;
                 }
             </style>
