@@ -22,6 +22,9 @@ if (!class_exists('Taurus_WC_Invoice_Generator')) {
             //Admin Interface
             require_once(WOO_INVOICE_PLUGIN_DIR_PATH . '/includes/admin/class.Taurus_WC_IG_Settings.php');
             $taurus_admin = new Taurus_WC_IG_Settings();
+
+            //Invoice download button on orders page
+            require_once(WOO_INVOICE_PLUGIN_DIR_PATH . '/includes/class.Taurus_WC_IG_Invoice_Download.php');
         }
 
         public function define_constants()
